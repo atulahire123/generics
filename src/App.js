@@ -1,42 +1,24 @@
 import React from 'react';
 import './App.css';
+import Header from './Header';
+import Cart from './Cart';
 
-const productsArr = [
-  {
-    title: 'Colors',
-    price: 100,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-  },
-  {
-    title: 'Black and white Colors',
-    price: 50,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-  },
-  {
-    title: 'Yellow and Black Colors',
-    price: 70,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-  },
-  {
-    title: 'Blue Color',
-    price: 100,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-  }
-];
-
-const App = () => {
+function App() {
   return (
     <div className="App">
-      <h1>Product Showcase</h1>
-      <div className="product-list">
-        {productsArr.map((product, index) => (
-          <div className="product" key={index}>
-            <img src={product.imageUrl} alt={product.title} />
-            <h2>{product.title}</h2>
-            <p>Price: ${product.price}</p>
-          </div>
-        ))}
+      <Header />
+      <h2>MUSIC</h2>
+      <div className="albums">
+        <div className="album">
+          <h3>Album 1</h3>
+          <img src="https://prasadyash2411.github.io/ecom-website/img/Album%201.png" alt="Album 1" />
+        </div>
+        <div className="album">
+          <h3>Album 2</h3>
+          <img src="https://prasadyash2411.github.io/ecom-website/img/Album%202.png" alt="Album 2" />
+        </div>
       </div>
+      <Cart />
     </div>
   );
 }
