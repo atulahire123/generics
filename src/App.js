@@ -4,7 +4,7 @@ import './App.css';
 import Header from './Components/Cart/Header';
 import Cart from './Components/Cart/Cart';
 import Footer from './Components/Cart/Footer';
-import { CartContext } from './Context/CartContext';
+import { CartContext } from './Components/Context/CartContext';
 import About from './Components/About/About';
 
 const albums = [
