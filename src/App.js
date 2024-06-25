@@ -6,7 +6,7 @@ import Cart from './Components/Store/Cart/Cart';
 import Footer from './Components/Store/Cart/Footer';
 import { CartContextProvider } from './Components/Context/CartContext';
 import About from './Components/About/About';
-import Store from './Components/Store/Store'; // Import Store component
+import Store from './Components/Store/Store';
 
 function App() {
   return (
@@ -15,7 +15,7 @@ function App() {
         <div className="App">
           <Header />
           <Routes>
-            <Route path="/store" element={<Store />} /> {/* Use Store component for /store route */}
+            <Route path="/store" element={<Store />} />
             <Route path="/about" element={<About />} />
           </Routes>
           <Footer />

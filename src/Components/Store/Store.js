@@ -1,7 +1,6 @@
-import React from 'react';
-import { useContext } from 'react';
+import React, { useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
-import './Store.css'; // Assuming you have a CSS file for styling
+import './Store.css';
 
 const albums = [
   {
@@ -46,7 +45,7 @@ const Store = () => {
 
   return (
     <div className="store-container">
-      <h2>Store</h2>
+      <h2>Music</h2>
       <div className="albums">
         {albums.map((album, index) => (
           <div key={index} className="album">
@@ -56,6 +55,11 @@ const Store = () => {
             <button onClick={() => handleAddToCart(album)}>Add to Cart</button>
           </div>
         ))}
+      </div>
+      <div className="bottom-cart-button-container">
+        <button className="cart-button-bottom" onClick={() => setShowCart(true)}>
+          See Cart
+        </button>
       </div>
     </div>
   );

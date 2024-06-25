@@ -1,12 +1,12 @@
+/* Header.css */
 .header-container {
   text-align: center;
-
 }
 
 .nav {
   display: flex;
   justify-content: center;
-  background-color: rgb(20, 19, 19);
+  background-color: #333;
   padding: 10px 0;
 }
 
@@ -28,14 +28,28 @@
 }
 
 .header {
-  background-color: #86888a;
+  background-color: #6c757d;
   padding: 20px;
   color: white;
- 
+  display: flex;
+  justify-content: space-between; /* Ensure Cart button aligns to the right */
 }
 
 h1 {
-  
-  margin-left: 450px;
+  margin: 20px 0;
+  margin-left:450px;;
   font-size: 36px;
+}
+
+.cart-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-button:hover {
+  background-color: #0056b3;
 }
