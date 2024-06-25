@@ -1,0 +1,23 @@
+.about-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .about-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .about-image {
+    width: 300px;
+    border-radius: 50%;
+    margin-bottom: 20px;
+  }
+  
+  .about-content p {
+    width: 60%;
+    text-align: left;
+    line-height: 1.6;
+  }
+  

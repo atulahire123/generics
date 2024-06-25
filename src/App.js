@@ -1,11 +1,11 @@
-// App.js
-
 import React, { useContext } from 'react';
+import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
 import './App.css';
 import Header from './Components/Cart/Header';
 import Cart from './Components/Cart/Cart';
-import Footer from './Components/Cart/Footer'; // Import Footer component
+import Footer from './Components/Cart/Footer';
 import { CartContext } from './Context/CartContext';
+import About from './Components/About/About';
 
 const albums = [
   {
@@ -53,27 +53,39 @@ function Album({ album }) {
   );
 }
 
-function App() {
+function Home() {
   const { setShowCart } = useContext(CartContext);
 
   return (
-    <div className="App">
-      <Header />
+    <>
       <h2>MUSIC</h2>
       <div className="albums">
         {albums.map((album, index) => (
           <Album key={index} album={album} />
         ))}
       </div>
-      
       <Cart />
       <div className="bottom-cart-button-container">
         <button className="cart-button-bottom" onClick={() => setShowCart(true)}>
-          Cart
+          See Cart
         </button>
       </div>
-      <Footer />
-    </div>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <Router>
+      <div className="App">
+        <Header />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
 
