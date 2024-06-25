@@ -1,5 +1,6 @@
+// src/Components/Store/Cart/Header.js
 import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
 import './Header.css';
 
@@ -10,9 +11,9 @@ const Header = () => {
     <div className="header-container">
       <nav className="nav">
         <ul>
-          <li><Link to="/">Home</Link></li>
-          <li><Link to="/store">Store</Link></li>
-          <li><Link to="/about">About</Link></li>
+          <li><NavLink to="/" activeClassName="active-link" end>Home</NavLink></li>
+          <li><NavLink to="/store" activeClassName="active-link">Store</NavLink></li>
+          <li><NavLink to="/about" activeClassName="active-link">About</NavLink></li>
         </ul>
       </nav>
       <div className="header">

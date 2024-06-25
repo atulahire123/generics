@@ -7,6 +7,7 @@ import Footer from './Components/Store/Cart/Footer';
 import { CartContextProvider } from './Components/Context/CartContext';
 import About from './Components/About/About';
 import Store from './Components/Store/Store';
+import Home from './Components/Home/Home';
 
 function App() {
   return (
@@ -15,8 +16,11 @@ function App() {
         <div className="App">
           <Header />
           <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/about" element={<About />} />
+            {/* Add a fallback route */}
+            <Route path="*" element={<Home />} />
           </Routes>
           <Footer />
           <Cart />
