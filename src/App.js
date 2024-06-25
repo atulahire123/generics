@@ -1,8 +1,11 @@
-import React from 'react';
+// App.js
+
+import React, { useContext } from 'react';
 import './App.css';
 import Header from './Components/Cart/Header';
 import Cart from './Components/Cart/Cart';
-import { CartProvider } from './Components/Context/CartContext'; // Update the path as per your project structure
+import Footer from './Components/Cart/Footer'; // Import Footer component
+import { CartContext } from './Context/CartContext';
 
 const albums = [
   {
@@ -37,23 +40,39 @@ const albums = [
   }
 ];
 
+function Album({ album }) {
+  const { addToCart } = useContext(CartContext);
+
+  return (
+    <div className="album">
+      <h3>{album.title}</h3>
+      <img src={album.imageUrl} alt={album.title} />
+      <p>${album.price}</p>
+      <button onClick={() => addToCart(album)}>Add to Cart</button>
+    </div>
+  );
+}
+
 function App() {
+  const { setShowCart } = useContext(CartContext);
+
   return (
     <div className="App">
-      <CartProvider>
-        <Header />
-        <h2>MUSIC</h2>
-        <div className="albums">
-          {albums.map((album, index) => (
-            <div key={index} className="album">
-              <h3>{album.title}</h3>
-              <img src={album.imageUrl} alt={album.title} />
-              <p>${album.price}</p>
-              <Cart album={album} />
-            </div>
-          ))}
-        </div>
-      </CartProvider>
+      <Header />
+      <h2>MUSIC</h2>
+      <div className="albums">
+        {albums.map((album, index) => (
+          <Album key={index} album={album} />
+        ))}
+      </div>
+      
+      <Cart />
+      <div className="bottom-cart-button-container">
+        <button className="cart-button-bottom" onClick={() => setShowCart(true)}>
+          Cart
+        </button>
+      </div>
+      <Footer />
     </div>
   );
 }

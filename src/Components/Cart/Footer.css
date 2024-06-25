@@ -1,0 +1,58 @@
+/* App.css */
+
+.albums {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  .album {
+    /*border: 1px solid #ccc;*/
+    padding: 10px;
+    text-align: center;
+  }
+  
+  .album img {
+    width: 60%;
+    height: auto;
+  }
+  
+  .cart-button-bottom {
+    display: block;
+    margin: 20px auto;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .cart-button-bottom:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Footer.css */
+  
+  .footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f1f1f1;
+  }
+  
+  .footer h3 {
+    margin: 10px 0;
+  }
+  
+  .social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .social-icons img {
+    width: 30px;
+    height: 30px;
+  }
+  

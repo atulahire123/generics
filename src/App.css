@@ -1,5 +1,3 @@
-/* App.css */
-
 .header-container {
   text-align: center;
 }
@@ -7,7 +5,7 @@
 .nav {
   display: flex;
   justify-content: center;
-  background-color: black;
+  background-color: #333;
   padding: 10px 0;
 }
 
@@ -32,11 +30,27 @@
   background-color: #6c757d;
   padding: 20px;
   color: white;
+  display: flex;
+  justify-content: space-between; /* Ensure Cart button aligns to the right */
 }
 
 h1 {
   margin: 20px 0;
   font-size: 36px;
+  
+}
+
+.cart-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.cart-button:hover {
+  background-color: #0056b3;
 }
 
 h2 {
@@ -45,66 +59,55 @@ h2 {
 }
 
 .albums {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
 }
 
 .album {
-  margin: 0 20px;
+  /*border: 1px solid #ccc;*/
+  padding: 10px;
   text-align: center;
 }
 
 .album img {
-  max-width: 200px;
+  width: 60%;
   height: auto;
 }
 
-.cart-container {
-  position: relative;
+.album p {
+  margin-top: 10px;
 }
-
-.cart-icon {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  background-color: #000;
-  color: #fff;
-  border: none;
-  padding: 10px;
-  cursor: pointer;
-}
-
-.cart-dropdown {
-  position: fixed;
-  top: 50px;
-  right: 10px;
-  background-color: #fff;
-  border: 1px solid #ccc;
+.albums {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
   padding: 20px;
-  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.cart-item {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
+.album {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
 }
 
-.cart-item img {
-  max-width: 50px;
+.album img {
+  width: 100%;
   height: auto;
-  margin-right: 10px;
 }
 
-.item-details {
-  flex: 1;
-}
-
-.remove-btn {
-  background-color: #ff0000;
+.cart-button-bottom {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
   color: #fff;
   border: none;
-  padding: 5px 10px;
+  border-radius: 5px;
   cursor: pointer;
+}
+
+.cart-button-bottom:hover {
+  background-color: #0056b3;
 }
