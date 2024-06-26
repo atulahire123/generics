@@ -111,3 +111,8 @@ h2 {
 .cart-button-bottom:hover {
   background-color: #0056b3;
 }
+.loader {
+  font-size: 20px;
+  text-align: center;
+  margin-top: 20px;
+}

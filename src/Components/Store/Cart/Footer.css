@@ -1,58 +1,44 @@
-/* App.css */
+/* Footer container styling */
+.footer-container {
+  background-color: #107ba1;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
 
-.albums {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-    padding: 20px;
-  }
-  
-  .album {
-    /*border: 1px solid #ccc;*/
-    padding: 10px;
-    text-align: center;
-  }
-  
-  .album img {
-    width: 45%;
-    height: auto;
-  }
-  
-  .cart-button-bottom {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .cart-button-bottom:hover {
-    background-color: #0056b3;
-  }
-  
-  /* Footer.css */
-  
-  .footer {
-    text-align: center;
-    padding: 20px;
-    background-color: #f1f1f1;
-  }
-  
-  .footer h3 {
-    margin: 10px 0;
-  }
-  
+/* Title styling */
+.footer-container h3 {
+  margin-bottom: 10px;
+}
+
+/* Social icons container */
+.social-icons {
+  margin-top: 10px;
+}
+
+/* Individual social icon styling */
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.social-icons img {
+  width: 30px; /* Adjust the size of the social icons as needed */
+  height: auto;
+}
+
+/* Hover effect on social icon */
+.social-icons a:hover img {
+  filter: brightness(85%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
   .social-icons {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+    margin-top: 20px;
   }
   
-  .social-icons img {
-    width: 30px;
-    height: 30px;
+  .social-icons a {
+    margin: 0 8px;
   }
-  
+}

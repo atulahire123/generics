@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
 import './Store.css';
 
@@ -37,10 +37,17 @@ const albums = [
 
 const Store = () => {
   const { setShowCart, addToCart } = useContext(CartContext);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingAlbumIndex, setLoadingAlbumIndex] = useState(null);
 
-  const handleAddToCart = (album) => {
+  const handleAddToCart = async (album, index) => {
+    setIsLoading(true);
+    setLoadingAlbumIndex(index);
+    await new Promise(resolve => setTimeout(resolve, 1000)); // Simulating network delay
     addToCart(album);
     setShowCart(true);
+    setIsLoading(false);
+    setLoadingAlbumIndex(null);
   };
 
   return (
@@ -52,7 +59,12 @@ const Store = () => {
             <h3>{album.title}</h3>
             <img src={album.imageUrl} alt={album.title} />
             <p>${album.price}</p>
-            <button onClick={() => handleAddToCart(album)}>Add to Cart</button>
+            <button
+              onClick={() => handleAddToCart(album, index)}
+              disabled={isLoading && loadingAlbumIndex === index}
+            >
+              {isLoading && loadingAlbumIndex === index ? 'Adding...' : 'Add to Cart'}
+            </button>
           </div>
         ))}
       </div>
@@ -61,6 +73,9 @@ const Store = () => {
           See Cart
         </button>
       </div>
+      {isLoading && loadingAlbumIndex === null && (
+        <div className="loader">Adding to cart...</div>
+      )}
     </div>
   );
 };

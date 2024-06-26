@@ -1,13 +1,17 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import './App.css';
+
+// Components
 import Header from './Components/Store/Cart/Header';
 import Cart from './Components/Store/Cart/Cart';
 import Footer from './Components/Store/Cart/Footer';
-import { CartContextProvider } from './Components/Context/CartContext';
 import About from './Components/About/About';
 import Store from './Components/Store/Store';
 import Home from './Components/Home/Home';
+
+// Context
+import { CartContextProvider } from './Components/Context/CartContext';
 
 function App() {
   return (
@@ -19,8 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/about" element={<About />} />
-            {/* Add a fallback route */}
-            <Route path="*" element={<Home />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
           <Cart />
@@ -29,5 +32,12 @@ function App() {
     </Router>
   );
 }
+
+const NotFound = () => (
+  <div>
+    <h2>404 - Page Not Found</h2>
+    <p>The page you are looking for does not exist.</p>
+  </div>
+);
 
 export default App;
