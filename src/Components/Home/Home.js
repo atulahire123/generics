@@ -1,15 +1,39 @@
-// src/Components/Home/Home.js
 import React from 'react';
-import './Home.css'; // Assuming you will add some custom styles here
+import './Home.css';
 
 const Home = () => {
   return (
     <div className="home-container">
-      <h1>Welcome to The Generics</h1>
-      <div className="home-content">
-        <img src='https://prasadyash2411.github.io/ecom-website/Album%201.png' alt='Album' className="home-image" />
-        <p>Your one-stop shop for the best music albums. Explore our store to find your favorites!</p>
-      </div>
+      
+
+      <main>
+       
+
+        <section className="tours">
+          <h2>TOURS</h2>
+          <div className="tour-dates">
+            <div className="tour-date">
+              <p>JUL 16</p>
+              <p>DETROIT, MI</p>
+              <p>DTE ENERGY MUSIC THEATRE</p>
+              <button>BUY TICKETS</button>
+            </div>
+            <div className="tour-date">
+              <p>JUL 19</p>
+              <p>TORONTO, ON</p>
+              <p>BUDWEISER STAGE</p>
+              <button>BUY TICKETS</button>
+            </div>
+            <div className="tour-date">
+              <p>JUL 22</p>
+              <p>BRISTOW, VA</p>
+              <p>JIGGY LUBE LIVE</p>
+              <button>BUY TICKETS</button>
+            </div>
+            {/* Add more tour dates as needed */}
+          </div>
+        </section>
+      </main>
     </div>
   );
 };

@@ -1,4 +1,3 @@
-// src/Components/Store/Cart/Header.js
 import React, { useContext } from 'react';
 import { NavLink } from 'react-router-dom';
 import { CartContext } from '../../Context/CartContext';
@@ -18,9 +17,12 @@ const Header = () => {
       </nav>
       <div className="header">
         <h1>The Generics</h1>
-        <button className="cart-button" onClick={() => setShowCart(!showCart)}>
-          Cart
-        </button>
+        <div className="header-buttons">
+          <button className="album-button">Get our Latest Album</button>
+          <button className="cart-button" onClick={() => setShowCart(!showCart)}>
+            Cart
+          </button>
+        </div>
       </div>
     </div>
   );
