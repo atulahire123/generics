@@ -12,7 +12,7 @@ const AlbumList = () => {
       setIsLoading(true);
       setError(null);
 
-      const response = await fetch('https://swapi.dve/api/films'); // Replace with your API URL
+      const response = await fetch('https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F'); // Replace with your API URL
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
