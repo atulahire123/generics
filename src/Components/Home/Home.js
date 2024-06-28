@@ -1,137 +1,113 @@
-import React, { useState, useEffect } from 'react';
-import { ref, set, push, onValue, remove } from 'firebase/database';
-import { database } from './firebase'; // Make sure to adjust the path to your firebase.js
+import React, { useState, useEffect, useCallback } from 'react';
 import './Home.css';
 
-const Home = () => {
-  const [tourDates, setTourDates] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [movie, setMovie] = useState({
-    title: '',
-    openingText: '',
-    releaseDate: '',
-  });
+const firebaseUrl = 'https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies.json'; // Replace YOUR_PROJECT_ID with your actual project ID
 
-  // Fetch movies from Firebase on component mount
-  useEffect(() => {
+const Home = () => {
+  const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  // Fetch movies from Firebase
+  const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
-    const moviesRef = ref(database, 'movies/');
-    onValue(moviesRef, (snapshot) => {
-      const data = snapshot.val();
-      const moviesList = [];
-      for (const key in data) {
-        moviesList.push({ id: key, ...data[key] });
+    setError(null);
+    try {
+      const response = await fetch(firebaseUrl);
+      if (!response.ok) {
+        throw new Error('Something went wrong!');
       }
-      setTourDates(moviesList);
-      setIsLoading(false);
-    });
+
+      const data = await response.json();
+
+      const loadedMovies = [];
+      for (const key in data) {
+        loadedMovies.push({
+          id: key,
+          title: data[key].title,
+          openingText: data[key].openingText,
+          releaseDate: data[key].releaseDate,
+        });
+      }
+
+      setMovies(loadedMovies);
+    } catch (err) {
+      setError(err.message);
+    }
+    setIsLoading(false);
   }, []);
 
-  // Handle form input changes
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setMovie((prevMovie) => ({
-      ...prevMovie,
-      [name]: value,
-    }));
-  };
+  useEffect(() => {
+    fetchMoviesHandler();
+  }, [fetchMoviesHandler]);
 
-  // Handle form submission to add a new movie
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
+  // Add new movie to Firebase
+  const addMovieHandler = async (movie) => {
     try {
-      const newMovieRef = push(ref(database, 'movies/'));
-      await set(newMovieRef, {
-        title: movie.title,
-        opening_crawl: movie.openingText,
-        release_date: movie.releaseDate,
-      });
-      setMovie({
-        title: '',
-        openingText: '',
-        releaseDate: '',
-      });
-      // Manually update UI after adding a new movie
-      setTourDates((prevTourDates) => [
-        ...prevTourDates,
-        {
-          id: newMovieRef.key,
-          title: movie.title,
-          opening_crawl: movie.openingText,
-          release_date: movie.releaseDate,
+      const response = await fetch(firebaseUrl, {
+        method: 'POST',
+        body: JSON.stringify(movie),
+        headers: {
+          'Content-Type': 'application/json',
         },
-      ]);
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to add movie.');
+      }
+      fetchMoviesHandler(); // Refresh movie list
     } catch (error) {
-      console.error('Error adding movie:', error);
+      setError(error.message);
     }
   };
 
-  // Handle delete movie
-  const handleDeleteMovie = async (id) => {
+  // Delete movie from Firebase
+  const deleteMovieHandler = async (movieId) => {
     try {
-      const movieRef = ref(database, `movies/${id}`);
-      await remove(movieRef);
-      // Update the UI to remove the deleted movie
-      setTourDates((prevTourDates) =>
-        prevTourDates.filter((tour) => tour.id !== id)
-      );
+      const response = await fetch(`https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies/${movieId}.json`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete movie.');
+      }
+      fetchMoviesHandler(); // Refresh movie list
     } catch (error) {
-      console.error('Error deleting movie:', error);
+      setError(error.message);
     }
   };
+
+  let content = <p>Found no movies.</p>;
+
+  if (movies.length > 0) {
+    content = (
+      <ul>
+        {movies.map((movie) => (
+          <li key={movie.id}>
+            <h2>{movie.title}</h2>
+            <p>{movie.openingText}</p>
+            <p>{movie.releaseDate}</p>
+            <button onClick={() => deleteMovieHandler(movie.id)}>Delete</button>
+          </li>
+        ))}
+      </ul>
+    );
+  }
+
+  if (error) {
+    content = <p>{error}</p>;
+  }
+
+  if (isLoading) {
+    content = <p>Loading...</p>;
+  }
 
   return (
-    <div className="home-container">
-      <h1>Welcome to The Generics</h1>
-      <form onSubmit={handleFormSubmit}>
-        <div className="form-group">
-          <label htmlFor="title">Title</label>
-          <input
-            type="text"
-            id="title"
-            name="title"
-            value={movie.title}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="openingText">Opening Text</label>
-          <textarea
-            id="openingText"
-            name="openingText"
-            value={movie.openingText}
-            onChange={handleInputChange}
-          ></textarea>
-        </div>
-        <div className="form-group">
-          <label htmlFor="releaseDate">Release Date</label>
-          <input
-            type="date"
-            id="releaseDate"
-            name="releaseDate"
-            value={movie.releaseDate}
-            onChange={handleInputChange}
-          />
-        </div>
-        <button type="submit">Add Movie</button>
-      </form>
-      <button className="fetch-movies-button" onClick={fetchTourDates}>
-        Fetch Movies
-      </button>
-      {isLoading ? (
-        <div className="loader">Loading...</div>
-      ) : (
-        <div className="tour-dates">
-          {tourDates.map((tour) => (
-            <div key={tour.id} className="tour-date">
-              <p><strong>Title:</strong> {tour.title}</p>
-              <p><strong>Opening Text:</strong> {tour.opening_crawl}</p>
-              <p><strong>Release Date:</strong> {tour.release_date}</p>
-              <button onClick={() => handleDeleteMovie(tour.id)}>DELETE</button>
-            </div>
-          ))}
-        </div>
-      )}
+    <div className="home">
+      <section>
+        <button onClick={fetchMoviesHandler}>Fetch Movies</button>
+      </section>
+      <section>{content}</section>
     </div>
   );
 };

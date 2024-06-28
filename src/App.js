@@ -1,5 +1,6 @@
+// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 
 // Components
@@ -10,7 +11,6 @@ import About from './Components/About/About';
 import Store from './Components/Store/Store';
 import Home from './Components/Home/Home';
 
-// Context
 import { CartContextProvider } from './Components/Context/CartContext';
 
 function App() {

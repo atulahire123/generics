@@ -1,46 +1,25 @@
-import React, { useContext } from 'react';
-import { NavLink, useLocation } from 'react-router-dom';
-import { CartContext } from '../../Context/CartContext';
-import './Header.css';
+// Example of adding navigation to Contact Us in Header component
+// src/Components/Store/Cart/Header.js or equivalent
+
+import React from 'react';
+import { Link } from 'react-router-dom';
+import './Header.css'
 
 const Header = () => {
-  const { showCart, setShowCart } = useContext(CartContext);
-  const location = useLocation();
-  const isStorePage = location.pathname === '/store';
-
-  const renderAlbumButton = () => (
-    location.pathname === '/' && (
-      <div className="header-buttons">
-        <button className="album-button">Get our Latest Album</button>
-      </div>
-    )
-  );
-
-  const renderCartButton = () => (
-    isStorePage && (
-      <div className="header-buttons">
-        <button className="cart-button" onClick={() => setShowCart(!showCart)}>
-          Cart
-        </button>
-      </div>
-    )
-  );
-
   return (
-    <div className="header-container">
-      <nav className="nav">
+    <header>
+      <nav>
         <ul>
-          <li><NavLink to="/" className={({ isActive }) => (isActive ? 'active-link' : '')} end>Home</NavLink></li>
-          <li><NavLink to="/store" className={({ isActive }) => (isActive ? 'active-link' : '')}>Store</NavLink></li>
-          <li><NavLink to="/about" className={({ isActive }) => (isActive ? 'active-link' : '')}>About</NavLink></li>
+        
+        <h1>The generics</h1>
+          <li><Link to="/">Home</Link></li>
+          <li><Link to="/store">Store</Link></li>
+          <li><Link to="/about">About</Link></li>
+          <li><Link to="/contactus">Contact Us</Link></li> {/* Link to Contact Us page */}
+          
         </ul>
       </nav>
-      <div className="header">
-        <h1>The Generics</h1>
-        {renderAlbumButton()}
-        {renderCartButton()}
-      </div>
-    </div>
+    </header>
   );
 };
 
