@@ -1,26 +1,25 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import './Home.css';
-
-const firebaseUrl = 'https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies.json'; // Replace YOUR_PROJECT_ID with your actual project ID
+import AddMovie from './AddMovie';
+import Movie from './Movie';
+import classes from './Home.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  // Fetch movies from Firebase
   const fetchMoviesHandler = useCallback(async () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch(firebaseUrl);
+      const response = await fetch('https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies.json');
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
-
       const data = await response.json();
 
       const loadedMovies = [];
+
       for (const key in data) {
         loadedMovies.push({
           id: key,
@@ -31,8 +30,8 @@ const Home = () => {
       }
 
       setMovies(loadedMovies);
-    } catch (err) {
-      setError(err.message);
+    } catch (error) {
+      setError(error.message);
     }
     setIsLoading(false);
   }, []);
@@ -41,10 +40,9 @@ const Home = () => {
     fetchMoviesHandler();
   }, [fetchMoviesHandler]);
 
-  // Add new movie to Firebase
   const addMovieHandler = async (movie) => {
     try {
-      const response = await fetch(firebaseUrl, {
+      const response = await fetch('https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies.json', {
         method: 'POST',
         body: JSON.stringify(movie),
         headers: {
@@ -55,23 +53,9 @@ const Home = () => {
       if (!response.ok) {
         throw new Error('Failed to add movie.');
       }
-      fetchMoviesHandler(); // Refresh movie list
-    } catch (error) {
-      setError(error.message);
-    }
-  };
 
-  // Delete movie from Firebase
-  const deleteMovieHandler = async (movieId) => {
-    try {
-      const response = await fetch(`https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies/${movieId}.json`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete movie.');
-      }
-      fetchMoviesHandler(); // Refresh movie list
+      // Fetch the updated list of movies after adding a new movie
+      fetchMoviesHandler();
     } catch (error) {
       setError(error.message);
     }
@@ -83,12 +67,12 @@ const Home = () => {
     content = (
       <ul>
         {movies.map((movie) => (
-          <li key={movie.id}>
-            <h2>{movie.title}</h2>
-            <p>{movie.openingText}</p>
-            <p>{movie.releaseDate}</p>
-            <button onClick={() => deleteMovieHandler(movie.id)}>Delete</button>
-          </li>
+          <Movie
+            key={movie.id}
+            title={movie.title}
+            openingText={movie.openingText}
+            releaseDate={movie.releaseDate}
+          />
         ))}
       </ul>
     );
@@ -103,12 +87,15 @@ const Home = () => {
   }
 
   return (
-    <div className="home">
+    <React.Fragment>
+      <section>
+        <AddMovie onAddMovie={addMovieHandler} />
+      </section>
       <section>
         <button onClick={fetchMoviesHandler}>Fetch Movies</button>
       </section>
       <section>{content}</section>
-    </div>
+    </React.Fragment>
   );
 };
 

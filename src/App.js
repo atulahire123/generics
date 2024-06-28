@@ -10,7 +10,7 @@ import Footer from './Components/Store/Cart/Footer';
 import About from './Components/About/About';
 import Store from './Components/Store/Store';
 import Home from './Components/Home/Home';
-
+import ContactUs from './Components/ContactUs/ContactUs'; // Import ContactUs component
 import { CartContextProvider } from './Components/Context/CartContext';
 
 function App() {
@@ -23,6 +23,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/store" element={<Store />} />
             <Route path="/about" element={<About />} />
+            <Route path="/contactus" element={<ContactUs />} /> {/* Add ContactUs route */}
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
