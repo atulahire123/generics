@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import AddMovie from './AddMovie';
 import Movie from './Movie';
-import classes from './Home.css';
+import'./Home.css';
 
 const Home = () => {
   const [movies, setMovies] = useState([]);

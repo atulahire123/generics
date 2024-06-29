@@ -21,7 +21,7 @@ const ContactUs = () => {
     };
 
     try {
-      const response = await fetch('https://your-firebase-project-url/contacts.json', {
+      const response = await fetch('https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/contacts.json', {
         method: 'POST',
         body: JSON.stringify(contactData),
         headers: {

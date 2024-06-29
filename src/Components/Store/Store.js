@@ -1,5 +1,10 @@
+
+
+
+// src/Components/Store/Store.js
 import React, { useState, useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
+import { useNavigate } from 'react-router-dom';
 import './Store.css';
 
 const albums = [
@@ -39,6 +44,7 @@ const Store = () => {
   const { setShowCart, addToCart } = useContext(CartContext);
   const [isLoading, setIsLoading] = useState(false);
   const [loadingAlbumIndex, setLoadingAlbumIndex] = useState(null);
+  const navigate = useNavigate();
 
   const handleAddToCart = async (album, index) => {
     setIsLoading(true);
@@ -50,17 +56,21 @@ const Store = () => {
     setLoadingAlbumIndex(null);
   };
 
+  const handleProductClick = (index) => {
+    navigate(`/product/${index}`);
+  };
+
   return (
     <div className="store-container">
       <h2>Music</h2>
       <div className="albums">
         {albums.map((album, index) => (
-          <div key={index} className="album">
+          <div key={index} className="album" onClick={() => handleProductClick(index)}>
             <h3>{album.title}</h3>
             <img src={album.imageUrl} alt={album.title} />
             <p>${album.price}</p>
             <button
-              onClick={() => handleAddToCart(album, index)}
+              onClick={(e) => { e.stopPropagation(); handleAddToCart(album, index); }}
               disabled={isLoading && loadingAlbumIndex === index}
             >
               {isLoading && loadingAlbumIndex === index ? 'Adding...' : 'Add to Cart'}
