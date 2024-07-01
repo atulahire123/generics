@@ -1,0 +1,44 @@
+/* Footer container styling */
+.footer-container {
+  background-color: #107ba1;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+/* Title styling */
+.footer-container h3 {
+  margin-bottom: 10px;
+}
+
+/* Social icons container */
+.social-icons {
+  margin-top: 10px;
+}
+
+/* Individual social icon styling */
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+}
+
+.social-icons img {
+  width: 30px; /* Adjust the size of the social icons as needed */
+  height: auto;
+}
+
+/* Hover effect on social icon */
+.social-icons a:hover img {
+  filter: brightness(85%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .social-icons {
+    margin-top: 20px;
+  }
+  
+  .social-icons a {
+    margin: 0 8px;
+  }
+}

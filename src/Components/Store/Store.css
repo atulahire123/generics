@@ -1,0 +1,71 @@
+/* Store.css */
+h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.albums {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  padding: 20px;
+}
+
+.album {
+  padding: 10px;
+  text-align: center;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+  transition: transform 0.2s;
+}
+
+.album:hover {
+  transform: scale(1.05);
+}
+
+.album img {
+  width: 60%;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.album p {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #333;
+}
+
+.cart-button-bottom {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.cart-button-bottom:hover {
+  background-color: #0056b3;
+}
+
+.loader {
+  text-align: center;
+  font-size: 20px;
+  color: #007bff;
+  margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+  .albums {
+    grid-template-columns: 1fr;
+  }
+
+  .album img {
+    width: 80%;
+  }
+}
