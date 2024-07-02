@@ -1,27 +1,50 @@
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AuthContext } from '../Context/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
   const navigate = useNavigate();
   const [error, setError] = useState(null);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Add logic for actual authentication here
-    // Assuming login is successful
-    login();
-    navigate('/store');
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    try {
+      // Check if the email exists
+      const checkEmailResponse = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`, {
+        method: 'POST',
+        body: JSON.stringify({ email, password, returnSecureToken: true }),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!checkEmailResponse.ok) {
+        const errorData = await checkEmailResponse.json();
+        if (errorData.error.message === 'EMAIL_NOT_FOUND') {
+          // Navigate to Signup page with query param
+          navigate(`/signup?email=${encodeURIComponent(email)}`);
+        } else {
+          setError(errorData.error.message);
+        }
+        return;
+      }
+
+      // Assuming login is successful (implement actual login logic here)
+      navigate('/store');
+    } catch (error) {
+      setError('An error occurred. Please try again.');
+    }
   };
 
   return (
     <div className="auth-container">
       <h2>Login</h2>
       <form onSubmit={handleLogin}>
-        <input type="email" placeholder="Email" required />
-        <input type="password" placeholder="Password" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
         <button type="submit">Login</button>
         {error && <p className="error">{error}</p>}
       </form>

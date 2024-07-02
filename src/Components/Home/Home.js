@@ -97,8 +97,6 @@ const Home = () => {
       <section>{content}</section>
     </React.Fragment>
   );
-
 };
 
 export default Home;
-//fefifuhfiskcehve
