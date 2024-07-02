@@ -8,7 +8,7 @@ const Login = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    const email = e.target.elements.email.value;
+    const email = e.target.elements.email.value;//
     const password = e.target.elements.password.value;
 
     try {
