@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-
 const Login = () => {
   const navigate = useNavigate();
   const [error, setError] = useState(null);
@@ -16,7 +15,7 @@ const Login = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=
+   const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=
 AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`, {
         method: 'POST',
         body: JSON.stringify({ email, password, returnSecureToken: true }),
