@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useCallback } from 'react';
 import AddMovie from './AddMovie';
 import Movie from './Movie';
 import './Home.css';
@@ -12,14 +12,13 @@ const Home = () => {
     setIsLoading(true);
     setError(null);
     try {
-      const response = await fetch('https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies.json');
+      const response = await fetch('https://react-ecommerce-1e874-default-rtdb.firebaseio.com/movies.json');
       if (!response.ok) {
         throw new Error('Something went wrong!');
       }
       const data = await response.json();
 
       const loadedMovies = [];
-
       for (const key in data) {
         loadedMovies.push({
           id: key,
@@ -36,13 +35,9 @@ const Home = () => {
     setIsLoading(false);
   }, []);
 
-  useEffect(() => {
-    fetchMoviesHandler();
-  }, [fetchMoviesHandler]);
-
   const addMovieHandler = async (movie) => {
     try {
-      const response = await fetch('https://console.firebase.google.com/project/react-ecommerce-1e874/database/react-ecommerce-1e874-default-rtdb/data/~2F/movies.json', {
+      const response = await fetch('https://react-ecommerce-1e874-default-rtdb.firebaseio.com/movies.json', {
         method: 'POST',
         body: JSON.stringify(movie),
         headers: {
@@ -53,9 +48,6 @@ const Home = () => {
       if (!response.ok) {
         throw new Error('Failed to add movie.');
       }
-
-      // Fetch the updated list of movies after adding a new movie
-      fetchMoviesHandler();
     } catch (error) {
       setError(error.message);
     }

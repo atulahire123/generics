@@ -1,13 +1,18 @@
-import React, { useRef } from 'react';
-import classes from './AddMovie.css';
+import React, { useRef, useState } from 'react';
+import './AddMovie.css';
 
-function AddMovie(props) {
+const AddMovie = (props) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
   const titleRef = useRef('');
   const openingTextRef = useRef('');
   const releaseDateRef = useRef('');
 
-  function submitHandler(event) {
+  const submitHandler = async (event) => {
     event.preventDefault();
+    setIsLoading(true);
+    setError(null);
 
     const movie = {
       title: titleRef.current.value,
@@ -15,24 +20,31 @@ function AddMovie(props) {
       releaseDate: releaseDateRef.current.value,
     };
 
-    props.onAddMovie(movie);
-  }
+    try {
+      await props.onAddMovie(movie);
+    } catch (error) {
+      setError(error.message);
+    }
+    setIsLoading(false);
+  };
 
   return (
-    <form onSubmit={submitHandler} className={classes.form}>
-      <div className={classes.control}>
+    <form onSubmit={submitHandler} className="form">
+      <div className="control">
         <label htmlFor='title'>Title</label>
         <input type='text' id='title' ref={titleRef} />
       </div>
-      <div className={classes.control}>
+      <div className="control">
         <label htmlFor='opening-text'>Opening Text</label>
         <textarea rows='5' id='opening-text' ref={openingTextRef}></textarea>
       </div>
-      <div className={classes.control}>
+      <div className="control">
         <label htmlFor='date'>Release Date</label>
         <input type='text' id='date' ref={releaseDateRef} />
       </div>
-      <button>Add Movie</button>
+      <button type="submit">Add Movie</button>
+      {isLoading && <p className="loading-message">Adding Movie...</p>}
+      {error && <p className="error-message">{error}</p>}
     </form>
   );
 }

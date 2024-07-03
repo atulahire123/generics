@@ -9,7 +9,7 @@ import Store from './Components/Store/Store';
 import Home from './Components/Home/Home';
 import ContactUs from './Components/ContactUs/ContactUs';
 import ProductPage from './Components/Store/ProductPage';
-import { AuthContextProvider } from './Components/Context/AuthContext';
+import AuthContextProvider from './Components/Context/AuthContext';
 import ProtectedRoute from './Components/ProtectedRoute';
 import Login from './Components/Auth/Login';
 import Signup from './Components/Auth/Signup';
@@ -37,7 +37,6 @@ function App() {
     </Router>
   );
 }
-
 const NotFound = () => (
   <div>
     <h2>404 - Page Not Found</h2>

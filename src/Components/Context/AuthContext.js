@@ -1,31 +1,50 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useState, useEffect, useCallback } from 'react';
 
-export const AuthContext = createContext();
+export const AuthContext = createContext({
+  token: null,
+  isLoggedIn: false,
+  login: (token) => {},
+  logout: () => {},
+});
 
-export const AuthContextProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+const retrieveStoredToken = () => {
+  const storedToken = localStorage.getItem('token');
+  return storedToken;
+};
 
-  useEffect(() => {
-    // Check if the user is already authenticated
-    const storedAuth = localStorage.getItem('isAuthenticated');
-    if (storedAuth) {
-      setIsAuthenticated(JSON.parse(storedAuth));
-    }
-  }, []);
+const AuthContextProvider = ({ children }) => {
+  const [token, setToken] = useState(retrieveStoredToken());
 
-  const login = () => {
-    setIsAuthenticated(true);
-    localStorage.setItem('isAuthenticated', true);
+  const userIsLoggedIn = !!token;
+
+  const loginHandler = (token) => {
+    setToken(token);
+    localStorage.setItem('token', token);
   };
 
-  const logout = () => {
-    setIsAuthenticated(false);
-    localStorage.removeItem('isAuthenticated');
+  const logoutHandler = useCallback(() => {
+    setToken(null);
+    localStorage.removeItem('token');
+  }, []);
+
+  useEffect(() => {
+    if (token) {
+      // Optionally, add a timer to automatically log out when the token expires
+    }
+  }, [token]);
+
+  const contextValue = {
+    token,
+    isLoggedIn: userIsLoggedIn,
+    login: loginHandler,
+    logout: logoutHandler,
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={contextValue}>
       {children}
     </AuthContext.Provider>
   );
 };
+
+export default AuthContextProvider;
