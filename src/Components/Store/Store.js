@@ -1,7 +1,3 @@
-
-
-
-// src/Components/Store/Store.js
 import React, { useState, useContext } from 'react';
 import { CartContext } from '../Context/CartContext';
 import { useNavigate } from 'react-router-dom';

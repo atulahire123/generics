@@ -1,4 +1,4 @@
-import React, { createContext, useState, useEffect, useCallback } from 'react';
+import React, { createContext, useState, useCallback, useEffect } from 'react';
 
 export const AuthContext = createContext({
   token: null,
@@ -8,8 +8,7 @@ export const AuthContext = createContext({
 });
 
 const retrieveStoredToken = () => {
-  const storedToken = localStorage.getItem('token');
-  return storedToken;
+  return localStorage.getItem('token');
 };
 
 const AuthContextProvider = ({ children }) => {
@@ -17,10 +16,10 @@ const AuthContextProvider = ({ children }) => {
 
   const userIsLoggedIn = !!token;
 
-  const loginHandler = (token) => {
+  const loginHandler = useCallback((token) => {
     setToken(token);
     localStorage.setItem('token', token);
-  };
+  }, []);
 
   const logoutHandler = useCallback(() => {
     setToken(null);
@@ -28,10 +27,11 @@ const AuthContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (token) {
-      // Optionally, add a timer to automatically log out when the token expires
+    const storedToken = retrieveStoredToken();
+    if (storedToken) {
+      setToken(storedToken);
     }
-  }, [token]);
+  }, []);
 
   const contextValue = {
     token,

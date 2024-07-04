@@ -1,13 +1,12 @@
+// Components/Auth/Signup.js
+
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './Signup.css';
 
 const Signup = () => {
-  const location = useLocation();
-  const queryParams = new URLSearchParams(location.search);
-  const emailFromQuery = queryParams.get('email') || '';
-
-  const [email, setEmail] = useState(emailFromQuery);
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
@@ -18,16 +17,19 @@ const Signup = () => {
     setFeedback('');
 
     try {
-      const response = await fetch(`https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=
-AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`, {
-        method: 'POST',
-        body: JSON.stringify({ email, password, returnSecureToken: true }),
-        headers: { 'Content-Type': 'application/json' },
-      });
+      const response = await fetch(
+        `https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`,
+        {
+          method: 'POST',
+          body: JSON.stringify({ email, password, returnSecureToken: true }),
+          headers: { 'Content-Type': 'application/json' },
+        }
+      );
 
       const data = await response.json();
       if (response.ok) {
         setFeedback('Account created successfully. You can now log in.');
+        navigate('/login'); // Redirect to login page after successful signup
       } else {
         setFeedback(data.error.message);
       }

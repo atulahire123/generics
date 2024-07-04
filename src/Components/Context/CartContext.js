@@ -8,7 +8,7 @@ export const CartContextProvider = ({ children }) => {
 
   const fetchCartItems = async () => {
     try {
-      const response = await fetch('/api/cart');
+      const response = await fetch('https://react-ecommerce-1e874-default-rtdb.firebaseio.com/Cart.json');
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
