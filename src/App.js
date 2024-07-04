@@ -34,6 +34,7 @@ const App = () => {
             <>
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path="*" element={<Navigate to="/login" replace />} />
             </>
           ) : (
             <>
@@ -49,6 +50,6 @@ const App = () => {
       </div>
     </Router>
   );
-}
+};
 
 export default App;
