@@ -5,7 +5,7 @@ import { AuthContext } from '../../Context/AuthContext';
 import './Header.css';
 
 const Header = () => {
-  const { isAuthenticated, logout } = useContext(AuthContext);
+  const { isLoggedIn, logout } = useContext(AuthContext);
 
   return (
     <header>
@@ -15,9 +15,12 @@ const Header = () => {
           <li><Link to="/">Home</Link></li>
           <li><Link to="/store">Store</Link></li>
           <li><Link to="/about">About</Link></li>
-          <li><Link to="/contactus">Contact Us</Link></li>
-          {isAuthenticated ? (
-            <li><button onClick={logout}>Logout</button></li>
+          <li><Link to="/contact">Contact Us</Link></li>
+          {isLoggedIn ? (
+            <>
+              <li><Link to="/profile">Profile</Link></li>
+              <li><button onClick={logout}>Logout</button></li>
+            </>
           ) : (
             <li><Link to="/login">Login</Link></li>
           )}
@@ -28,4 +31,3 @@ const Header = () => {
 };
 
 export default Header;
-

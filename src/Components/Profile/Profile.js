@@ -1,5 +1,3 @@
-// src/Components/Profile/Profile.js
-
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../Context/AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -18,7 +16,7 @@ const Profile = () => {
     setMessage('');
     try {
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=https://firebase.google.com/docs/reference/rest/auth#section-change-password`, 
+        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`,
         {
           method: 'POST',
           body: JSON.stringify({

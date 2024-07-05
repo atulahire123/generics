@@ -1,10 +1,10 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; // Update to useNavigate
 import { AuthContext } from '../Context/AuthContext';
 import './Login.css';
 
 const Login = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // Update to useNavigate
   const { login } = useContext(AuthContext);
   const [error, setError] = useState(null);
   const [email, setEmail] = useState('');
@@ -15,7 +15,8 @@ const Login = () => {
 
     try {
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs80`,
+        `https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=
+AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`,
         {
           method: 'POST',
           body: JSON.stringify({ email, password, returnSecureToken: true }),
@@ -30,7 +31,7 @@ const Login = () => {
       }
 
       login(data.idToken);
-      navigate('/store'); // Redirect to the store page
+      navigate('/store', { replace: true }); // Redirect to the store page
     } catch (error) {
       setError('An error occurred. Please try again.');
     }
