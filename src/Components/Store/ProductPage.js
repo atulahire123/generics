@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './ProductPage.css';
 
 const products = [
@@ -85,6 +85,7 @@ const ProductPage = () => {
           ))}
         </ul>
       </div>
+      <Link to="/store">Go to Store</Link> {/* Link to Store page */}
     </div>
   );
 };
