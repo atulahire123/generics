@@ -1,14 +1,13 @@
-// src/Components/ProtectedRoute.js
-
+// ProtectedRoute.js
 import React, { useContext } from 'react';
 import { Navigate } from 'react-router-dom';
 import { AuthContext } from './Context/AuthContext';
 
 const ProtectedRoute = ({ children }) => {
-  const { isLoggedIn } = useContext(AuthContext);
+  const { isAuthenticated } = useContext(AuthContext);
 
-  if (!isLoggedIn) {
-    return <Navigate to="/login" replace />;
+  if (!isAuthenticated) {
+    return <Navigate to="/login" />;
   }
 
   return children;

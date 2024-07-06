@@ -1,13 +1,22 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import './Signup.css';
 
 const Signup = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [feedback, setFeedback] = useState('');
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const prefillEmail = params.get('email');
+    if (prefillEmail) {
+      setEmail(prefillEmail);
+    }
+  }, [location.search]);
 
   const signupHandler = async (event) => {
     event.preventDefault();

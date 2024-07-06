@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
-import { CartContext } from '../Context/CartContext'; // Adjust import path as needed
+import React, { useContext } from 'react';
+import { CartContext } from '../Context/CartContext';
 import { Link } from 'react-router-dom';
 import './Store.css';
 
 const Store = ({ products }) => {
-  const { addToCart, cartItems, removeItem, calculateTotal } = useContext(CartContext);
+  const { addToCart } = useContext(CartContext);
 
   if (!products) {
     return <div className="loader">Loading...</div>;
@@ -22,7 +22,7 @@ const Store = ({ products }) => {
           </li>
         ))}
       </ul>
-      <Link to="/cart">Go to Cart</Link> {/* Link to Cart page */}
+      <Link to="/cart" className="cart-link">Go to Cart</Link>
     </div>
   );
 };

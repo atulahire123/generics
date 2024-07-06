@@ -16,7 +16,7 @@ const Profile = () => {
     setMessage('');
     try {
       const response = await fetch(
-        `https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8`,
+        'https://identitytoolkit.googleapis.com/v1/accounts:update?key=AIzaSyCSKfkH8qKA01VSPg6TCAfi9fKEQvjQOs8',
         {
           method: 'POST',
           body: JSON.stringify({
