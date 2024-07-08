@@ -1,41 +1,34 @@
-// AuthContext.js
-import React, { createContext, useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+// src/Components/Context/AuthContext.js
+import React, { createContext, useContext, useState } from 'react';
 
+// Create a context
 export const AuthContext = createContext();
 
 const AuthContextProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [token, setToken] = useState(null);
-  const navigate = useNavigate();
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token');
-    if (storedToken) {
-      setToken(storedToken);
-      setIsAuthenticated(true);
-    }
-  }, []);
-
-  const login = (newToken) => {
-    setToken(newToken);
-    setIsAuthenticated(true);
-    localStorage.setItem('token', newToken);
-    navigate('/store'); // Navigate to store after login
+  const login = (token, email) => {
+    setUser({ token, email });
+    localStorage.setItem('authToken', token); // Persist the token
+    localStorage.setItem('authEmail', email); // Persist the email
   };
 
   const logout = () => {
-    setToken(null);
-    setIsAuthenticated(false);
-    localStorage.removeItem('token');
-    navigate('/login');
+    setUser(null);
+    localStorage.removeItem('authToken'); // Remove the token from local storage
+    localStorage.removeItem('authEmail'); // Remove the email from local storage
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, token, login, logout }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+// Custom hook to use the AuthContext
+export const useAuthContext = () => {
+  return useContext(AuthContext);
 };
 
 export default AuthContextProvider;

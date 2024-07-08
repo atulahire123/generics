@@ -1,4 +1,4 @@
-// ProductList.js
+// src/Components/Store/ProductList.js
 import React from 'react';
 import PropTypes from 'prop-types';
 //import './ProductList.css';
