@@ -1,15 +1,13 @@
-// src/index.js
+
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router } from 'react-router-dom';
-import App from './App';
-import AuthContextProvider from './Components/Context/AuthContext';
+import App from './App'; // Replace with your main App component
+import { BrowserRouter as Router } from 'react-router-dom'; // Ensure you have BrowserRouter or appropriate Router
 
-ReactDOM.render(
-  <AuthContextProvider>
-    <Router>
-      <App />
-    </Router>
-  </AuthContextProvider>,
-  document.getElementById('root')
+// Replace ReactDOM.render with createRoot
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(
+  <Router>
+    <App />
+  </Router>
 );

@@ -8,16 +8,17 @@ const Header = () => {
   const { user, logout } = useAuthContext();
 
   return (
-    <header>
+    <header className="header">
       <nav>
         <ul>
           <li><Link to="/">Home</Link></li>
           <li><Link to="/store">Store</Link></li>
           <li><Link to="/about">About</Link></li>
+          <li><Link to="/contact">Contact</Link></li>
+
           {user ? (
             <>
               <li><Link to="/profile">Profile</Link></li>
-              <li><Link to="/cart">Cart</Link></li>
               <li><button onClick={logout}>Logout</button></li>
             </>
           ) : (

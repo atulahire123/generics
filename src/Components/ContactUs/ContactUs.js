@@ -1,3 +1,4 @@
+// src/Components/ContactUs/ContactUs.js
 import React, { useState } from 'react';
 import './ContactUs.css';
 
@@ -18,7 +19,7 @@ const ContactUs = () => {
     const contactData = { name, email, phone };
 
     try {
-      const response = await fetch(`https://react-ecommerce-1e874-default-rtdb.firebaseio.com/contacts.json`, {
+      const response = await fetch('https://react-ecommerce-1e874-default-rtdb.firebaseio.com/contacts.json', {
         method: 'POST',
         body: JSON.stringify(contactData),
         headers: { 'Content-Type': 'application/json' },
@@ -44,20 +45,41 @@ const ContactUs = () => {
       <form onSubmit={submitHandler}>
         <div className="form-control">
           <label htmlFor="name">Name</label>
-          <input type="text" id="name" value={name} onChange={(e) => setName(e.target.value)} required />
+          <input
+            type="text"
+            id="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
         </div>
         <div className="form-control">
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
         </div>
         <div className="form-control">
-          <label htmlFor="phone">Phone Number</label>
-          <input type="tel" id="phone" value={phone} onChange={(e) => setPhone(e.target.value)} required />
+          <label htmlFor="phone">Phone</label>
+          <input
+            type="tel"
+            id="phone"
+            value={phone}
+            onChange={(e) => setPhone(e.target.value)}
+            required
+          />
         </div>
-        <button type="submit" disabled={isSubmitting}>{isSubmitting ? 'Submitting...' : 'Submit'}</button>
-        {error && <p className="error">{error}</p>}
-        {feedback && <p className="feedback">{feedback}</p>}
+        <div className="form-actions">
+          <button type="submit" disabled={isSubmitting}>Submit</button>
+        </div>
       </form>
+      {isSubmitting && <p className="loader-message">Sending request...</p>}
+      {error && <p className="error-message">{error}</p>}
+      {feedback && <p className="feedback-message">{feedback}</p>}
     </div>
   );
 };
